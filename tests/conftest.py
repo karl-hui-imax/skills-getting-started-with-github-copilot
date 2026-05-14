@@ -11,7 +11,10 @@ ORIGINAL_ACTIVITIES = copy.deepcopy(activities)
 
 @pytest.fixture(autouse=True)
 def reset_activities_state():
-    """Reset mutable in-memory activities before every test."""
+    """Reset mutable in-memory activities around every test."""
+    activities.clear()
+    activities.update(copy.deepcopy(ORIGINAL_ACTIVITIES))
+    yield
     activities.clear()
     activities.update(copy.deepcopy(ORIGINAL_ACTIVITIES))
 
